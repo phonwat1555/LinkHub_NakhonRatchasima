@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รวมระบบของ ปวช.ศูนย์ส่งเสริมการเรียนรู้ระดับอำเภอเมืองนครราชสีมา</title>
+    
+    <!-- Google Fonts: Sarabun for Thai text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sarabun', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1e40af', // Blue
+                        secondary: '#0f766e', // Teal
+                        accent: '#b45309', // Amber/Orange
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1497864149936-d3163f0c0f4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+        .btn-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+    <!-- Main Container -->
+    <div class="glass-panel w-full max-w-md rounded-3xl shadow-2xl overflow-hidden relative animate-fade-in-up">
+        
+        <!-- Decorative Top Bar -->
+        <div class="h-2 bg-gradient-to-r from-blue-600 via-teal-500 to-orange-500"></div>
+
+        <div class="p-8">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <div class="relative inline-block">
+                    <div class="absolute inset-0 bg-blue-100 rounded-full transform scale-110 opacity-50 blur-sm"></div>
+                    <img src="https://img2.pic.in.th/pic/logo-.debc5e7f6fde2780.png" 
+                         alt="logo สกร.นม" 
+                         class="relative w-32 h-32 object-contain mx-auto mb-4 drop-shadow-md hover:scale-105 transition-transform duration-300">
+                </div>
+                
+                <h1 class="text-2xl font-bold text-gray-800 leading-relaxed mt-4">
+                    ระบบสารสนเทศเพื่อการเรียนรู้
+                </h1>
+                <p class="text-lg text-gray-600 font-medium mt-1">
+                    ศูนย์ส่งเสริมการเรียนรู้ระดับอำเภอเมืองนครราชสีมา
+                </p>
+            </div>
+
+            <!-- Buttons Section -->
+            <div class="space-y-4">
+                
+                <!-- Button 1 -->
+                <a href="https://phonwat1555.github.io/Student-Attendance-System/" target="_blank" class="btn-hover group flex items-center p-4 bg-white border-l-4 border-blue-600 rounded-xl shadow-md hover:bg-blue-50 cursor-pointer no-underline text-gray-800">
+                    <div class="bg-blue-100 p-3 rounded-full mr-4 group-hover:bg-blue-600 transition-colors duration-300">
+                        <i class="fas fa-user-check text-blue-600 text-xl group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl">ระบบบันทึกการเข้าเรียน</h3>
+                        <p class="text-sm text-gray-500">Student Attendance System</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-300 group-hover:text-blue-600"></i>
+                </a>
+
+                <!-- Button 2 -->
+                <a href="https://phonwat1555.github.io/ESCS1/" target="_blank" class="btn-hover group flex items-center p-4 bg-white border-l-4 border-orange-500 rounded-xl shadow-md hover:bg-orange-50 cursor-pointer no-underline text-gray-800">
+                    <div class="bg-orange-100 p-3 rounded-full mr-4 group-hover:bg-orange-500 transition-colors duration-300">
+                        <i class="fas fa-calendar-days text-orange-600 text-xl group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl">ตารางเรียนปลายภาคเรียน</h3>
+                        <p class="text-sm text-gray-500">Exam Schedule Checking</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-300 group-hover:text-orange-500"></i>
+                </a>
+
+                <!-- Button 3 -->
+                <a href="https://phonwat1555.github.io/Attendance-History-Tracking-System/" target="_blank" class="btn-hover group flex items-center p-4 bg-white border-l-4 border-teal-600 rounded-xl shadow-md hover:bg-teal-50 cursor-pointer no-underline text-gray-800">
+                    <div class="bg-teal-100 p-3 rounded-full mr-4 group-hover:bg-teal-600 transition-colors duration-300">
+                        <i class="fas fa-clock-rotate-left text-teal-700 text-xl group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl">ประวัติการเข้าเรียน</h3>
+                        <p class="text-sm text-gray-500">Attendance History Tracking</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-300 group-hover:text-teal-600"></i>
+                </a>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center">
+                <p class="text-sm text-gray-400">
+                    © 2025 ศูนย์ส่งเสริมการเรียนรู้ระดับอำเภอเมืองนครราชสีมา<br>
+                    <span class="opacity-75">พัฒนาระบบสารสนเทศเพื่อการเรียนรู้</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
