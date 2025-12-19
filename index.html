@@ -222,40 +222,6 @@
         .news-scroll::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-        
-        /* Floating Social Dock */
-        .social-dock {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 50;
-        }
-        .social-btn {
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            transition: all 0.3s ease;
-        }
-        .social-btn:hover {
-            transform: scale(1.1) translateY(-5px);
-            background: white;
-        }
-        .social-btn.facebook:hover { color: #1877F2; }
-        .social-btn.line:hover { color: #00C300; }
-        .social-btn.phone:hover { color: #00a884; }
-
     </style>
 </head>
 <body class="font-sans">
@@ -270,12 +236,12 @@
         <div class="whitespace-nowrap animate-marquee flex items-center gap-8">
             <span class="inline-flex items-center gap-2"><i class="fas fa-bullhorn text-yellow-400"></i> ยินดีต้อนรับสู่ระบบสารสนเทศ ปวช. สกร.อำเภอเมืองนครราชสีมา</span>
             <span class="inline-flex items-center gap-2 text-blue-200">|</span>
-            <span class="inline-flex items-center gap-2">📢 แจ้งนักศึกษาตรวจสอบตารางสอบปลายภาคเรียนที่ 2/2568 ผ่านระบบได้แล้ววันนี้</span>
+            <span class="inline-flex items-center gap-2">📢 แข่งกีฬา สกร.ระดับอำเภอเมืองนครราชสีมา วันที่ 25 มกราคม 2569 นี้</span>
             <span class="inline-flex items-center gap-2 text-blue-200">|</span>
             <span class="inline-flex items-center gap-2">💡 อย่าลืมเช็คชื่อเข้าเรียนทุกครั้งเพื่อสิทธิ์ในการสอบ</span>
             <!-- Duplicate for seamless loop effect (optional, or rely on css) -->
              <span class="inline-flex items-center gap-2 text-blue-200">|</span>
-             <span class="inline-flex items-center gap-2">📞 ติดต่อสอบถามงานทะเบียนได้ที่เบอร์ 044220454 ในเวลาราชการ</span>
+             <span class="inline-flex items-center gap-2">📞 ติดต่อสอบถามงานทะเบียนได้ที่เบอร์ 044 220 454 ในเวลาราชการ</span>
         </div>
     </div>
 
@@ -431,19 +397,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- === FLOAT SOCIAL DOCK === -->
-    <div class="social-dock animate-fade-in-up" style="animation-delay: 1s;">
-        <a href="https://www.facebook.com/" target="_blank" class="social-btn facebook" title="https://www.facebook.com/PVCHMeuangKorat">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#" class="social-btn line" title="Line OA">
-            <i class="fab fa-line"></i>
-        </a>
-        <a href="tel:044220454" class="social-btn phone" title="Call Center">
-            <i class="fas fa-phone-alt"></i>
-        </a>
     </div>
 
     <!-- === PART 2: SYSTEM VIEWER (IFRAME) === -->
@@ -739,4 +692,3 @@
     </script>
 </body>
 </html>
-
