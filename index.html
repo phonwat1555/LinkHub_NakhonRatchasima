@@ -30,6 +30,7 @@
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'shine': 'shine 1.5s infinite',
+                        'marquee': 'marquee 25s linear infinite',
                     },
                     keyframes: {
                         float: {
@@ -38,6 +39,10 @@
                         },
                         shine: {
                             '100%': { left: '125%' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' },
                         }
                     }
                 }
@@ -137,6 +142,7 @@
             align-items: center;
             justify-content: center;
             padding: 1rem;
+            padding-top: 3rem; /* Add padding for marquee */
         }
 
         /* System Viewer (Iframe Container) */
@@ -216,6 +222,40 @@
         .news-scroll::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
+        
+        /* Floating Social Dock */
+        .social-dock {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
+        }
+        .social-btn {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            transform: scale(1.1) translateY(-5px);
+            background: white;
+        }
+        .social-btn.facebook:hover { color: #1877F2; }
+        .social-btn.line:hover { color: #00C300; }
+        .social-btn.phone:hover { color: #00a884; }
+
     </style>
 </head>
 <body class="font-sans">
@@ -224,6 +264,20 @@
     <div id="bg-image"></div>
     <div id="bg-overlay"></div>
     <canvas id="particles-canvas"></canvas>
+
+    <!-- === PART 0: MARQUEE BAR === -->
+    <div class="fixed top-0 left-0 w-full bg-blue-900/80 backdrop-blur-sm text-white z-50 py-1.5 overflow-hidden border-b border-blue-500/30">
+        <div class="whitespace-nowrap animate-marquee flex items-center gap-8">
+            <span class="inline-flex items-center gap-2"><i class="fas fa-bullhorn text-yellow-400"></i> ยินดีต้อนรับสู่ระบบสารสนเทศ ปวช. สกร.อำเภอเมืองนครราชสีมา</span>
+            <span class="inline-flex items-center gap-2 text-blue-200">|</span>
+            <span class="inline-flex items-center gap-2">📢 แจ้งนักศึกษาตรวจสอบตารางสอบปลายภาคเรียนที่ 2/2567 ผ่านระบบได้แล้ววันนี้</span>
+            <span class="inline-flex items-center gap-2 text-blue-200">|</span>
+            <span class="inline-flex items-center gap-2">💡 อย่าลืมเช็คชื่อเข้าเรียนทุกครั้งเพื่อสิทธิ์ในการสอบ</span>
+            <!-- Duplicate for seamless loop effect (optional, or rely on css) -->
+             <span class="inline-flex items-center gap-2 text-blue-200">|</span>
+             <span class="inline-flex items-center gap-2">📞 ติดต่อสอบถามงานทะเบียนได้ที่เบอร์ 044-xxx-xxx ในเวลาราชการ</span>
+        </div>
+    </div>
 
     <!-- === PART 1: MAIN MENU === -->
     <div id="main-menu-container">
@@ -248,6 +302,11 @@
                         
                         <!-- Text Group -->
                         <div class="bg-gradient-to-b from-white/90 to-white/50 backdrop-blur-md border border-white/70 rounded-3xl p-6 md:px-8 shadow-lg w-full md:w-auto text-center transform transition-transform hover:scale-[1.01] duration-300">
+                            <!-- Smart Greeting -->
+                            <div id="smart-greeting" class="text-sm font-semibold text-blue-600 mb-1 uppercase tracking-wider">
+                                สวัสดีครับ ยินดีต้อนรับ
+                            </div>
+
                             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight mb-2 tracking-tight drop-shadow-sm">
                                 <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-800 via-blue-600 to-teal-600">
                                     งานระบบสารสนเทศ ปวช.
@@ -372,6 +431,19 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <!-- === FLOAT SOCIAL DOCK === -->
+    <div class="social-dock animate-fade-in-up" style="animation-delay: 1s;">
+        <a href="https://www.facebook.com/" target="_blank" class="social-btn facebook" title="https://www.facebook.com/search/top?q=%E0%B8%9B%E0%B8%A7%E0%B8%8A.%20%E0%B8%81%E0%B8%A8%E0%B8%99.%E0%B8%AD%E0%B8%B3%E0%B9%80%E0%B8%A0%E0%B8%AD%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%AA%E0%B8%B5%E0%B8%A1%E0%B8%B2">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-btn line" title="Line OA">
+            <i class="fab fa-line"></i>
+        </a>
+        <a href="tel:044220454" class="social-btn phone" title="Call Center">
+            <i class="fas fa-phone-alt"></i>
+        </a>
     </div>
 
     <!-- === PART 2: SYSTEM VIEWER (IFRAME) === -->
@@ -624,16 +696,46 @@
         initParticles();
         animateParticles();
 
-        // --- Clock ---
-        function updateClock() {
+        // --- Clock & Smart Greeting ---
+        function updateClockAndGreeting() {
             const now = new Date();
             const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            
+            // Clock
             document.getElementById('live-clock').textContent = 
                 `${now.toLocaleDateString('th-TH', dateOptions)} | ${now.toLocaleTimeString('th-TH', timeOptions)} น.`;
+
+            // Smart Greeting Logic
+            const hour = now.getHours();
+            let greeting = "";
+            let icon = "";
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = "อรุณสวัสดิ์ครับ เริ่มต้นวันใหม่อย่างสดใส";
+                icon = '<i class="fas fa-coffee mr-2"></i>';
+            } else if (hour >= 12 && hour < 17) {
+                greeting = "สวัสดีตอนบ่ายครับ อย่าลืมพักผ่อนบ้างนะครับ";
+                icon = '<i class="fas fa-sun mr-2"></i>';
+            } else if (hour >= 17 && hour < 20) {
+                greeting = "สวัสดีตอนเย็นครับ เลิกเรียนแล้วเดินทางปลอดภัย";
+                icon = '<i class="fas fa-cloud-moon mr-2"></i>';
+            } else {
+                greeting = "ราตรีสวัสดิ์ครับ พักผ่อนให้เพียงพอนะครับ";
+                icon = '<i class="fas fa-moon mr-2"></i>';
+            }
+            
+            const greetingEl = document.getElementById('smart-greeting');
+            if (greetingEl) {
+                 // Only update if text changes to prevent flickering
+                if (!greetingEl.innerHTML.includes(greeting)) {
+                    greetingEl.innerHTML = `${icon} ${greeting}`;
+                }
+            }
         }
-        setInterval(updateClock, 1000);
-        updateClock();
+        
+        setInterval(updateClockAndGreeting, 1000);
+        updateClockAndGreeting();
     </script>
 </body>
 </html>
