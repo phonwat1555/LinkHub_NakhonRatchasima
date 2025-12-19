@@ -179,11 +179,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(15, 23, 42, 0.8);
+            background-color: rgba(15, 23, 42, 0.85); /* Darker background for better contrast */
             backdrop-filter: blur(8px);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
+            padding: 1rem; /* Add padding for small screens */
         }
 
         #news-modal.active {
@@ -416,16 +417,17 @@
 
     <!-- === PART 3: NEWS MODAL (หน้าต่างประชาสัมพันธ์) === -->
     <div id="news-modal" onclick="if(event.target === this) toggleNewsModal(false)">
-        <div id="news-content" class="bg-white/95 backdrop-blur-xl w-full max-w-2xl max-h-[85vh] rounded-2xl shadow-2xl flex flex-col mx-4 border border-white/50">
+        <!-- MODIFIED: Added max-h settings and better scrolling logic -->
+        <div id="news-content" class="bg-white/95 backdrop-blur-xl w-full max-w-2xl max-h-[85vh] rounded-2xl shadow-2xl flex flex-col border border-white/50 relative">
             
             <!-- Modal Header -->
-            <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gradient-to-r from-rose-50 to-white rounded-t-2xl">
+            <div class="flex-shrink-0 flex items-center justify-between p-4 md:p-5 border-b border-gray-100 bg-gradient-to-r from-rose-50 to-white rounded-t-2xl">
                 <div class="flex items-center gap-3">
                     <div class="bg-rose-100 p-2 rounded-lg text-rose-600">
                         <i class="fas fa-bullhorn text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-gray-800">ประชาสัมพันธ์ & กิจกรรม</h2>
+                        <h2 class="text-lg md:text-xl font-bold text-gray-800">ประชาสัมพันธ์ & กิจกรรม</h2>
                         <p class="text-xs text-gray-500">อัปเดตข่าวสารล่าสุดจากศูนย์ฯ</p>
                     </div>
                 </div>
@@ -434,67 +436,69 @@
                 </button>
             </div>
 
-            <!-- News List Container -->
-            <div class="overflow-y-auto p-5 news-scroll space-y-4">
+            <!-- News List Container (Scrollable) -->
+            <!-- MODIFIED: Removed truncation classes, optimized padding -->
+            <div class="flex-1 overflow-y-auto p-4 md:p-5 news-scroll space-y-4">
                 
                 <!-- News Item 1 (Icon Version) -->
-                <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow flex gap-4">
+                <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row gap-4">
                     <!-- Icon Box -->
-                    <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-500 shadow-sm border border-blue-100">
-                        <i class="fas fa-scroll text-2xl"></i>
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-500 shadow-sm border border-blue-100">
+                        <i class="fas fa-scroll text-xl sm:text-2xl"></i>
                     </div>
                     <!-- Content -->
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full">ประกาศ</span>
-                            <span class="text-xs text-gray-400"><i class="far fa-clock mr-1"></i>19 ธ.ค. 67</span>
+                    <div class="flex-1 min-w-0"> <!-- min-w-0 helps with text wrapping in flex items -->
+                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full whitespace-nowrap">ประกาศ</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap"><i class="far fa-clock mr-1"></i>19 ธ.ค. 68</span>
                         </div>
-                        <h3 class="font-bold text-gray-800 mb-1 line-clamp-1">แจ้งกำหนดการสอบปลายภาคเรียนที่ 2/2568</h3>
-                        <p class="text-sm text-gray-600 line-clamp-2">ให้นักศึกษาตรวจสอบตารางสอบและรายชื่อผู้มีสิทธิ์สอบผ่านระบบสารสนเทศ ตั้งแต่วันที่ 15 กุมภาพันธ์ 2569 เป็นต้นไป</p>
+                        <!-- REMOVED: line-clamp classes -->
+                        <h3 class="font-bold text-gray-800 mb-1 text-base sm:text-lg break-words">แจ้งกำหนดการสอบปลายภาคเรียนที่ 2/2568</h3>
+                        <p class="text-sm text-gray-600 break-words leading-relaxed">ให้นักศึกษาตรวจสอบตารางสอบและรายชื่อผู้มีสิทธิ์สอบผ่านระบบสารสนเทศ ตั้งแต่วันที่ 1 มีนาคม 2569 เป็นต้นไป โดยสามารถเข้าสู่ระบบและเลือกเมนู "ตรวจสอบตารางสอบ"</p>
                     </div>
                 </div>
 
                 <!-- News Item 2 (Icon Version) -->
-                <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow flex gap-4">
+                <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row gap-4">
                     <!-- Icon Box -->
-                    <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-500 shadow-sm border border-emerald-100">
-                        <i class="fas fa-users text-2xl"></i>
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-500 shadow-sm border border-emerald-100">
+                        <i class="fas fa-users text-xl sm:text-2xl"></i>
                     </div>
                     <!-- Content -->
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded-full">กิจกรรม</span>
-                            <span class="text-xs text-gray-400"><i class="far fa-clock mr-1"></i>15 ธ.ค. 67</span>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded-full whitespace-nowrap">กิจกรรม</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap"><i class="far fa-clock mr-1"></i>19 ธ.ค. 68</span>
                         </div>
-                        <h3 class="font-bold text-gray-800 mb-1 line-clamp-1">แข่งกีฬา สกร.ระดับอำเภอเมืองนครราชสีมา
+                        <h3 class="font-bold text-gray-800 mb-1 text-base sm:text-lg break-words">แข่งกีฬา สกร.อำเภอเมืองนครราชสีมา
 วันที่ 25 มกราคม 2569</h3>
-                        <p class="text-sm text-gray-600 line-clamp-2">แจ้งนักศึกษาลงชื่อเข้าแข่งขันกีฬา สกร.อำเภอเมืองนครราชสีมา ในวันที่ 25 มกราคม 2569 ณ สนามกีฬาค่ายสุรนารี 
-(ได้ชั่วโมงกิจกรรม 30 ชั่วโมง)บังคับ</p>
+                        <p class="text-sm text-gray-600 break-words leading-relaxed"> แจ้งนักศึกษาบังคับเข้าร่วมกิจกรรม สกร.ระดับอำเภอเมืองนครราชสีมา ในวันที่ 25 มกราคม 2569 ณ สนามกีฬาค่ายสุรนารี 
+(ได้ชั่วโมงกิจกรรม 30 ชั่วโมง)</p>
                     </div>
                 </div>
 
                 <!-- News Item 3 (Icon Version) -->
-                <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow flex gap-4">
+                <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row gap-4">
                     <!-- Icon Box -->
-                    <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-rose-50 flex items-center justify-center text-rose-500 shadow-sm border border-rose-100">
-                        <i class="fas fa-door-open text-2xl"></i>
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-rose-50 flex items-center justify-center text-rose-500 shadow-sm border border-rose-100">
+                        <i class="fas fa-door-open text-xl sm:text-2xl"></i>
                     </div>
                     <!-- Content -->
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-rose-100 text-rose-700 text-[10px] font-bold rounded-full">สำคัญ</span>
-                            <span class="text-xs text-gray-400"><i class="far fa-clock mr-1"></i>10 ธ.ค. 67</span>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 bg-rose-100 text-rose-700 text-[10px] font-bold rounded-full whitespace-nowrap">สำคัญ</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap"><i class="far fa-clock mr-1"></i>19 ธ.ค. 68</span>
                         </div>
-                        <h3 class="font-bold text-gray-800 mb-1 line-clamp-1">อย่าลืมลงชื่อเข้าเรียนทุกครั้งในงานระบบสารสนเทศ ปวช.</h3>
-                        <p class="text-sm text-gray-600 line-clamp-2"> ขอให้นักศึกษามาพบกลุ่มด้วยทุกครั้ง คนที่ไม่มาเรียนเลยอาจหมดสิทธิ์สอบ</p>
+                        <h3 class="font-bold text-gray-800 mb-1 text-base sm:text-lg break-words">อย่าลืมลงชื่อเข้าเรียนทุกครั้งในงานระบบสารสนเทศ ปวช.</h3>
+                        <p class="text-sm text-gray-600 break-words leading-relaxed">ขอให้นักศึกษามาพบกลุ่มด้วยทุกครั้ง คนที่ไม่มาเรียนเลยอาจหมดสิทธิ์สอบได้</p>
                     </div>
                 </div>
 
             </div>
 
             <!-- Modal Footer -->
-            <div class="p-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-center">
-                <button onclick="toggleNewsModal(false)" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium transition-colors text-sm">
+            <div class="flex-shrink-0 p-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-center">
+                <button onclick="toggleNewsModal(false)" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium transition-colors text-sm w-full sm:w-auto">
                     ปิดหน้าต่าง
                 </button>
             </div>
