@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบงานสารสนเทศ ปวช.ศูนย์ส่งเสริมการเรียนรู้ระดับอำเภอเมืองนครราชสีมา</title>
     
-    <!-- Security Meta Tags -->
     <meta name="description" content="ศูนย์รวมระบบงานสารสนเทศ ปวช. สกร.อำเภอเมืองนครราชสีมา">
     <meta name="author" content="Phonwat1555">
 
-    <!-- Google Fonts: Sarabun for Thai text -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,15 +28,23 @@
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'shine': 'shine 1.5s infinite',
+                        'blob': 'blob 7s infinite',
+                        'marquee': 'marquee 25s linear infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-10px)' },
                         },
-                        shine: {
-                            '100%': { left: '125%' },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' },
                         }
                     }
                 }
@@ -50,73 +57,57 @@
             min-height: 100vh;
             margin: 0;
             overflow: hidden; 
-            /* Light Theme Background */
             background-color: #f0f9ff; 
         }
 
-        /* Background Layer 1: Soft Gradient */
+        /* --- Background Effects --- */
         #bg-image {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -3;
-            /* Changed to a light abstract gradient */
             background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
         }
-
-        /* Background Layer 2: Subtle Color Overlay */
-        #bg-overlay {
+        
+        .blob-shape {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            border-radius: 50%;
+            filter: blur(50px);
             z-index: -2;
-            background: radial-gradient(circle at 50% 0%, rgba(219, 234, 254, 0.6), transparent 70%);
-        }
-
-        /* Background Layer 3: Particles Canvas */
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        /* Glass Panel Styling (Adapted for Light Theme) */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            /* Softer shadow for light theme */
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1); 
+            opacity: 0.6;
+            animation: blob 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Button Shine Effect */
-        .btn-shine {
-            position: relative;
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.1); 
+        }
+
+        /* Hover Bounce Effect */
+        .hover-bounce {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .hover-bounce:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        /* Typing Cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+            color: #3b82f6;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* News Ticker Container */
+        .news-ticker-container {
             overflow: hidden;
-        }
-        .btn-shine::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -75%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            transition: none;
-            z-index: 5;
-            pointer-events: none;
-        }
-        .btn-shine:hover::before {
-            animation: shine 1s;
+            white-space: nowrap;
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
         /* Entrance Animation */
@@ -129,41 +120,17 @@
             opacity: 0;
         }
 
-        /* Scrollbar for Main Menu */
-        #main-menu-container {
-            height: 100vh;
-            overflow-y: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        /* System Viewer (Iframe Container) */
+        /* Iframe & Nav */
         #system-viewer {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 100;
             background: white;
-            transform: translateY(100%); /* Hidden by default */
+            transform: translateY(100%);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
-
-        #system-viewer.active {
-            transform: translateY(0);
-        }
-
-        #iframe-frame {
-            flex: 1;
-            width: 100%;
-            border: none;
-        }
-
+        #system-viewer.active { transform: translateY(0); }
         .glass-nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -176,139 +143,159 @@
 
     <!-- Background Elements -->
     <div id="bg-image"></div>
-    <div id="bg-overlay"></div>
-    <canvas id="particles-canvas"></canvas>
+    
+    <!-- Decorative Blobs (New) -->
+    <div class="blob-shape bg-blue-200 w-96 h-96 top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="blob-shape bg-purple-200 w-96 h-96 bottom-0 right-0 translate-x-1/2 translate-y-1/2 animation-delay-2000"></div>
+    <div class="blob-shape bg-orange-100 w-64 h-64 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animation-delay-4000"></div>
 
-    <!-- === PART 1: MAIN MENU === -->
-    <div id="main-menu-container">
-        <!-- Added border-white to glass panel for cleaner look -->
+    <canvas id="particles-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+
+    <!-- === MAIN MENU === -->
+    <div id="main-menu-container" class="h-screen overflow-y-auto flex items-center justify-center p-4">
         <div class="glass-panel w-full max-w-3xl rounded-[2rem] overflow-hidden relative animate-fade-in-up z-10" style="animation-delay: 0.1s;">
             
-            <!-- Decorative Top Bar -->
-            <div class="h-2 bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500"></div>
+            <!-- Top Gradient Bar -->
+            <div class="h-1.5 bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400"></div>
 
             <div class="p-6 md:p-10">
-                <!-- Header Section -->
-                <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-5 md:gap-8">
-                        
-                        <!-- Logo Group -->
-                        <div class="relative flex-shrink-0 group cursor-default">
-                            <!-- Changed glow to light blue -->
-                            <div class="absolute inset-0 bg-blue-200 rounded-full opacity-30 group-hover:opacity-50 blur-md transition-opacity duration-500 animate-pulse"></div>
-                            <img src="https://img2.pic.in.th/pic/logo-.debc5e7f6fde2780.png" 
-                                 onerror="this.src='https://via.placeholder.com/150?text=Logo'"
-                                 alt="logo สกร.นม" 
-                                 class="relative w-28 h-28 md:w-32 md:h-32 object-contain drop-shadow-md transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
-                        </div>
-                        
-                        <!-- Text Group -->
-                        <div class="bg-white/60 backdrop-blur-sm border border-white/80 rounded-3xl p-6 md:px-8 shadow-sm w-full md:w-auto text-center transform transition-transform hover:scale-[1.01] duration-300">
-                            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 leading-tight mb-2 tracking-tight">
-                                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-blue-500 to-teal-500">
-                                    งานระบบสารสนเทศ ปวช.
-                                </span>
-                            </h1>
-                            
-                            <p class="text-base md:text-lg text-slate-600 font-bold tracking-wide">
-                                ศูนย์ส่งเสริมการเรียนรู้ระดับอำเภอเมืองนครราชสีมา
-                            </p>
-                        </div>
+                
+                <!-- NEW: News Ticker (แถบข่าววิ่ง) -->
+                <div class="mb-6 bg-blue-50/80 border border-blue-100 rounded-lg py-2 px-3 flex items-center gap-3 shadow-inner">
+                    <div class="bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm flex-shrink-0 animate-pulse">
+                        <i class="fas fa-bullhorn mr-1"></i> ประกาศ
                     </div>
-
-                    <!-- Digital Clock -->
-                    <div class="flex justify-center mt-8">
-                        <div class="inline-flex items-center justify-center bg-white border border-blue-50 text-blue-600 px-6 py-2 rounded-full text-sm font-semibold shadow-sm hover:shadow-md transition-all">
-                            <i class="far fa-clock mr-2 text-blue-400"></i>
-                            <span id="live-clock">Loading...</span>
+                    <div class="news-ticker-container flex-1 text-sm text-blue-800 font-medium">
+                        <div class="inline-block animate-marquee whitespace-nowrap">
+                            📢 แจ้งกำหนดการสอบปลายภาคเรียนที่ 2/2568 ตั้งแต่วันที่ 15 กุมภาพันธ์ 2569 เป็นต้นไป &nbsp;&nbsp; • &nbsp;&nbsp; 🏆 ขอเชิญร่วมงานแข่งกีฬา สกร.ระดับอำเภอ วันที่ 25 ม.ค. 69 &nbsp;&nbsp; • &nbsp;&nbsp; ⚠️ อย่าลืมเช็คชื่อเข้าเรียนทุกครั้งเพื่อสิทธิ์ในการสอบ
                         </div>
                     </div>
                 </div>
 
-                <!-- Buttons Section (Staggered Grid) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Header Section -->
+                <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-5 md:gap-8">
+                        
+                        <!-- Logo -->
+                        <div class="relative flex-shrink-0 group cursor-default">
+                            <div class="absolute inset-0 bg-blue-300 rounded-full opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500"></div>
+                            <img src="https://img2.pic.in.th/pic/logo-.debc5e7f6fde2780.png" 
+                                 onerror="this.src='https://via.placeholder.com/150?text=Logo'"
+                                 alt="logo สกร.นม" 
+                                 class="relative w-28 h-28 md:w-32 md:h-32 object-contain drop-shadow-lg transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3">
+                        </div>
+                        
+                        <!-- Text with Typing Effect -->
+                        <div class="text-center md:text-left">
+                            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800 leading-tight mb-2 tracking-tight">
+                                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600">
+                                    งานระบบสารสนเทศ ปวช.
+                                </span>
+                            </h1>
+                            
+                            <!-- Typing Container -->
+                            <p class="text-base md:text-lg text-slate-500 font-medium h-6">
+                                <span id="typing-text" class="typing-cursor"></span>
+                            </p>
+                        </div>
+                    </div>
 
-                    <!-- Note: Removed News Popup Button as requested -->
+                    <!-- Digital Clock Pill -->
+                    <div class="flex justify-center mt-6">
+                        <div class="inline-flex items-center gap-2 bg-white/60 border border-white/60 px-4 py-1.5 rounded-full shadow-sm backdrop-blur-sm">
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                            <span id="live-clock" class="text-sm font-semibold text-slate-600 font-mono">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     
-                    <!-- Button 1: ระบบบันทึกการเข้าเรียน -->
+                    <!-- Button 1 -->
                     <div onclick="openSystem('https://phonwat1555.github.io/Student-Attendance-System/', 'ระบบบันทึกการเข้าเรียน')"
-                       class="animate-fade-in-up btn-shine group flex items-center p-4 bg-white hover:bg-blue-50/80 rounded-2xl border-l-[6px] border-l-blue-500 hover:border-l-blue-600 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative cursor-pointer border-2 border-blue-100 hover:border-blue-300"
+                       class="animate-fade-in-up hover-bounce group flex items-center p-4 bg-white/90 rounded-2xl border-l-[6px] border-l-blue-500 shadow-sm relative cursor-pointer border border-slate-100 overflow-hidden"
                        style="animation-delay: 0.3s;">
-                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                       <div class="absolute right-0 top-0 w-24 h-24 bg-blue-50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500 z-0"></div>
+                        <div class="relative z-10 flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md">
                             <i class="fas fa-user-check text-lg"></i>
                         </div>
-                        <div class="flex-1 pl-4 z-10">
-                            <h3 class="font-bold text-gray-800 group-hover:text-blue-700 transition-colors">ระบบบันทึกการเข้าเรียน</h3>
-                            <p class="text-xs text-gray-500">Student Attendance System</p>
+                        <div class="relative z-10 flex-1 pl-4">
+                            <h3 class="font-bold text-slate-800 group-hover:text-blue-700 transition-colors">ระบบบันทึกการเข้าเรียน</h3>
+                            <p class="text-xs text-slate-500">Student Attendance System</p>
                         </div>
-                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-blue-500 group-hover:translate-x-1 transition-all"></i>
+                        <i class="fas fa-arrow-right text-slate-300 group-hover:text-blue-500 group-hover:translate-x-1 transition-all relative z-10"></i>
                     </div>
 
-                    <!-- Button 2: ตรวจสอบข้อมูลการเข้าเรียน -->
+                    <!-- Button 2 -->
                     <div onclick="openSystem('https://phonwat1555.github.io/Student-System-Attendance-/', 'ตรวจสอบข้อมูลการเข้าเรียน')"
-                       class="animate-fade-in-up btn-shine group flex items-center p-4 bg-white hover:bg-purple-50/80 rounded-2xl border-l-[6px] border-l-purple-500 hover:border-l-purple-600 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative cursor-pointer border-2 border-purple-100 hover:border-purple-300"
+                       class="animate-fade-in-up hover-bounce group flex items-center p-4 bg-white/90 rounded-2xl border-l-[6px] border-l-purple-500 shadow-sm relative cursor-pointer border border-slate-100 overflow-hidden"
                        style="animation-delay: 0.4s;">
-                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                       <div class="absolute right-0 top-0 w-24 h-24 bg-purple-50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500 z-0"></div>
+                        <div class="relative z-10 flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-md">
                             <i class="fas fa-clipboard-list text-lg"></i>
                         </div>
-                        <div class="flex-1 pl-4 z-10">
-                            <h3 class="font-bold text-gray-800 group-hover:text-purple-700 transition-colors">ตรวจสอบข้อมูลการเข้าเรียน</h3>
-                            <p class="text-xs text-gray-500">Check Attendance Information</p>
+                        <div class="relative z-10 flex-1 pl-4">
+                            <h3 class="font-bold text-slate-800 group-hover:text-purple-700 transition-colors">ตรวจสอบข้อมูลการเข้าเรียน</h3>
+                            <p class="text-xs text-slate-500">Check Attendance Info</p>
                         </div>
-                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all"></i>
+                        <i class="fas fa-arrow-right text-slate-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all relative z-10"></i>
                     </div>
 
-                    <!-- Button 3: ระบบตรวจสอบตารางสอบ -->
+                    <!-- Button 3 -->
                     <div onclick="openSystem('https://phonwat1555.github.io/ESCS1/', 'ระบบตรวจสอบตารางสอบ')"
-                       class="animate-fade-in-up btn-shine group flex items-center p-4 bg-white hover:bg-orange-50/80 rounded-2xl border-l-[6px] border-l-orange-500 hover:border-l-orange-600 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative cursor-pointer border-2 border-orange-100 hover:border-orange-300"
+                       class="animate-fade-in-up hover-bounce group flex items-center p-4 bg-white/90 rounded-2xl border-l-[6px] border-l-orange-500 shadow-sm relative cursor-pointer border border-slate-100 overflow-hidden"
                        style="animation-delay: 0.5s;">
-                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                       <div class="absolute right-0 top-0 w-24 h-24 bg-orange-50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500 z-0"></div>
+                        <div class="relative z-10 flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md">
                             <i class="fas fa-calendar-days text-lg"></i>
                         </div>
-                        <div class="flex-1 pl-4 z-10">
-                            <h3 class="font-bold text-gray-800 group-hover:text-orange-700 transition-colors">ระบบตรวจสอบตารางสอบ</h3>
-                            <div class="flex items-center gap-1">
-                                <p class="text-xs text-gray-500">Exam Schedule Checking</p>
-                                <span class="px-1.5 py-0.5 bg-orange-100 text-orange-600 text-[9px] rounded-md font-bold">New</span>
+                        <div class="relative z-10 flex-1 pl-4">
+                            <h3 class="font-bold text-slate-800 group-hover:text-orange-700 transition-colors">ระบบตรวจสอบตารางสอบ</h3>
+                            <div class="flex items-center gap-2">
+                                <p class="text-xs text-slate-500">Exam Schedule</p>
+                                <span class="px-1.5 py-0.5 bg-orange-100 text-orange-600 text-[9px] rounded font-bold animate-pulse">New</span>
                             </div>
                         </div>
-                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all"></i>
+                        <i class="fas fa-arrow-right text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all relative z-10"></i>
                     </div>
 
-                    <!-- Button 4: ระบบทะเบียนวัดผล ศธ.02 -->
+                    <!-- Button 4 -->
                     <div onclick="openSystem('https://nfestd2018.moe.go.th/web/Index.htm?mode=index', 'ระบบทะเบียนวัดผล ศธ.02')"
-                       class="animate-fade-in-up btn-shine group flex items-center p-4 bg-white hover:bg-emerald-50/80 rounded-2xl border-l-[6px] border-l-emerald-500 hover:border-l-emerald-600 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative cursor-pointer border-2 border-emerald-100 hover:border-emerald-300"
+                       class="animate-fade-in-up hover-bounce group flex items-center p-4 bg-white/90 rounded-2xl border-l-[6px] border-l-emerald-500 shadow-sm relative cursor-pointer border border-slate-100 overflow-hidden"
                        style="animation-delay: 0.6s;">
-                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                       <div class="absolute right-0 top-0 w-24 h-24 bg-emerald-50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500 z-0"></div>
+                        <div class="relative z-10 flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
                             <i class="fas fa-file-signature text-lg"></i>
                         </div>
-                        <div class="flex-1 pl-4 z-10">
-                            <h3 class="font-bold text-gray-800 group-hover:text-emerald-700 transition-colors">ระบบทะเบียนวัดผล ศธ.02</h3>
-                            <p class="text-xs text-gray-500">Registration & Measurement</p>
+                        <div class="relative z-10 flex-1 pl-4">
+                            <h3 class="font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">ระบบทะเบียนวัดผล ศธ.02</h3>
+                            <p class="text-xs text-slate-500">Registration System</p>
                         </div>
-                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all"></i>
+                        <i class="fas fa-arrow-right text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all relative z-10"></i>
                     </div>
 
-                    <!-- Admin Button (Now Public) -->
+                    <!-- Admin Button -->
                     <div onclick="openSystem('https://phonwat1555.github.io/Attendance-History-Tracking-System/', 'ระบบตรวจสอบประวัติการเข้าเรียน')" 
-                         class="animate-fade-in-up btn-shine md:col-span-2 group flex items-center p-4 bg-white hover:bg-teal-50/80 rounded-2xl border-l-[6px] border-l-teal-500 hover:border-l-teal-600 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative cursor-pointer border-2 border-teal-100 hover:border-teal-300"
+                         class="animate-fade-in-up hover-bounce md:col-span-2 group flex items-center p-4 bg-white/90 rounded-2xl border-l-[6px] border-l-teal-500 shadow-sm relative cursor-pointer border border-slate-100 overflow-hidden"
                          style="animation-delay: 0.7s;">
-                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                         <div class="absolute right-0 top-0 w-32 h-32 bg-teal-50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500 z-0"></div>
+                        <div class="relative z-10 flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 text-white shadow-md">
                             <i class="fas fa-user-shield text-lg"></i>
                         </div>
-                        <div class="flex-1 pl-4 z-10">
-                            <h3 class="font-bold text-gray-800 group-hover:text-teal-700 transition-colors">ระบบตรวจสอบประวัติการเข้าเรียน</h3>
-                            <p class="text-xs text-gray-500">Attendance History Tracking</p>
+                        <div class="relative z-10 flex-1 pl-4">
+                            <h3 class="font-bold text-slate-800 group-hover:text-teal-700 transition-colors">ระบบตรวจสอบประวัติการเข้าเรียน</h3>
+                            <p class="text-xs text-slate-500">Attendance History Tracking (Admin/User)</p>
                         </div>
-                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-teal-500 group-hover:translate-x-1 transition-all"></i>
+                        <i class="fas fa-arrow-right text-slate-300 group-hover:text-teal-500 group-hover:translate-x-1 transition-all relative z-10"></i>
                     </div>
 
                 </div>
 
                 <!-- Footer -->
                 <div class="mt-8 text-center animate-fade-in-up" style="animation-delay: 0.8s;">
-                    <div class="inline-block px-4 py-1.5 bg-white/50 rounded-full border border-white/50 shadow-sm backdrop-blur-sm">
-                        <p class="text-sm text-slate-500 font-semibold">
+                    <div class="inline-block px-4 py-1.5 bg-white/50 rounded-full border border-white/50 shadow-sm backdrop-blur-sm hover:bg-white/80 transition-colors cursor-default">
+                        <p class="text-xs text-slate-500 font-medium">
                             Copyright 2025 © ศูนย์ส่งเสริมการเรียนรู้ระดับอำเภอเมืองนครราชสีมา
                         </p>
                     </div>
@@ -317,15 +304,13 @@
         </div>
     </div>
 
-    <!-- === PART 2: SYSTEM VIEWER (IFRAME) === -->
+    <!-- === SYSTEM VIEWER (IFRAME) === -->
     <div id="system-viewer">
-        <!-- Navigation Bar -->
         <div class="glass-nav px-4 py-3 flex items-center justify-between z-50 relative">
             <div class="flex items-center gap-3">
                 <button onclick="closeSystem()" class="group flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-500 transition-all shadow-sm hover:shadow border border-slate-200">
                     <i class="fas fa-arrow-left text-lg transform group-hover:-translate-x-0.5 transition-transform"></i>
                 </button>
-                
                 <div class="flex flex-col">
                     <h2 id="system-title" class="text-base md:text-lg font-bold text-slate-800 leading-tight">ชื่อระบบ</h2>
                     <p class="text-[10px] md:text-xs text-slate-500 flex items-center gap-1">
@@ -333,34 +318,38 @@
                     </p>
                 </div>
             </div>
-
-            <!-- Actions -->
             <div class="flex items-center gap-2">
-                <button onclick="reloadSystem()" class="p-2 text-slate-400 hover:text-blue-500 transition-colors" title="รีโหลด">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
-                <a id="external-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-semibold hover:bg-blue-100 transition-colors">
-                    <span>เปิดแท็บใหม่</span>
-                    <i class="fas fa-external-link-alt text-xs"></i>
+                <button onclick="reloadSystem()" class="p-2 text-slate-400 hover:text-blue-500 transition-colors" title="รีโหลด"><i class="fas fa-sync-alt"></i></button>
+                <a id="external-link" href="#" target="_blank" class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-semibold hover:bg-blue-100 transition-colors">
+                    <span>เปิดแท็บใหม่</span> <i class="fas fa-external-link-alt text-xs"></i>
                 </a>
             </div>
         </div>
-
-        <!-- Loading Indicator -->
         <div id="iframe-loader" class="absolute inset-0 flex items-center justify-center bg-slate-50 z-40 mt-16">
             <div class="flex flex-col items-center">
                 <div class="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-3"></div>
                 <p class="text-sm text-slate-500 font-medium animate-pulse">กำลังเชื่อมต่อระบบ...</p>
             </div>
         </div>
-
-        <!-- The Content Frame -->
-        <iframe id="iframe-frame" src="" allowfullscreen="true"></iframe>
+        <iframe id="iframe-frame" src="" class="flex-1 w-full border-none"></iframe>
     </div>
 
-    <!-- Note: News Modal (Popup) HTML removed as requested -->
-
     <script>
+        // --- Typing Effect ---
+        const textToType = "ศูนย์ส่งเสริมการเรียนรู้ระดับอำเภอเมืองนครราชสีมา";
+        const typingElement = document.getElementById('typing-text');
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                typingElement.innerHTML += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 50); // Speed of typing
+            }
+        }
+        // Start typing after a short delay
+        setTimeout(typeWriter, 1000);
+
         // --- System Viewer Logic ---
         const systemViewer = document.getElementById('system-viewer');
         const iframeFrame = document.getElementById('iframe-frame');
@@ -368,25 +357,19 @@
         const iframeLoader = document.getElementById('iframe-loader');
         const externalLink = document.getElementById('external-link');
 
-        iframeFrame.addEventListener('load', hideLoader);
+        iframeFrame.addEventListener('load', () => iframeLoader.style.display = 'none');
 
         function openSystem(url, title) {
             systemTitle.textContent = title;
             iframeLoader.style.display = 'flex';
             externalLink.href = url;
             systemViewer.classList.add('active');
-
-            setTimeout(() => {
-                iframeFrame.src = url;
-            }, 100);
+            setTimeout(() => { iframeFrame.src = url; }, 100);
         }
 
         function closeSystem() {
             systemViewer.classList.remove('active');
-            setTimeout(() => {
-                iframeFrame.src = '';
-                iframeLoader.style.display = 'flex';
-            }, 400);
+            setTimeout(() => { iframeFrame.src = ''; iframeLoader.style.display = 'flex'; }, 400);
         }
 
         function reloadSystem() {
@@ -394,21 +377,12 @@
             iframeFrame.src = iframeFrame.src;
         }
 
-        function hideLoader() {
-            iframeLoader.style.display = 'none';
-        }
-
-        // Note: News Modal Logic removed
-
-        // --- Particle Animation ---
+        // --- Particle Animation (Subtle for Light Theme) ---
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
@@ -421,28 +395,19 @@
                 this.size = Math.random() * 2 + 1;
             }
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
+                this.x += this.vx; this.y += this.vy;
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
             }
             draw() {
-                // Changed particle color to Blue-ish Gray for Light Theme
                 ctx.fillStyle = 'rgba(59, 130, 246, 0.4)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
             }
         }
-
         function initParticles() {
             particles = [];
-            const numberOfParticles = window.innerWidth < 768 ? 30 : 60;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < (window.innerWidth < 768 ? 30 : 60); i++) particles.push(new Particle());
         }
-
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < particles.length; i++) {
@@ -454,7 +419,6 @@
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     if (distance < 150) {
                         ctx.beginPath();
-                        // Changed line color to Blue for Light Theme
                         ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 - distance/1500})`;
                         ctx.lineWidth = 0.5;
                         ctx.moveTo(particles[i].x, particles[i].y);
@@ -465,8 +429,7 @@
             }
             requestAnimationFrame(animateParticles);
         }
-        initParticles();
-        animateParticles();
+        initParticles(); animateParticles();
 
         // --- Clock ---
         function updateClock() {
@@ -476,8 +439,7 @@
             document.getElementById('live-clock').textContent = 
                 `${now.toLocaleDateString('th-TH', dateOptions)} | ${now.toLocaleTimeString('th-TH', timeOptions)} น.`;
         }
-        setInterval(updateClock, 1000);
-        updateClock();
+        setInterval(updateClock, 1000); updateClock();
     </script>
 </body>
 </html>
